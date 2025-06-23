@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Listado de Libros en Préstamo</h1>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Libros en Préstamo</h6>
+            <a href="prestamos/add" class="btn btn-info btn-sm">Adicionar Préstamo</a>
+                                
+            <form class="form-inline" method="GET" action="{{ url_for('list_libros') }}">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="Buscar..." value="{{ search }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Colocación</th>
+                            <th>Título</th>
+                            <th>Usuario</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in prestamos %}
+                        <tr>
+                            <td>{{ p.dewey }} - {{ p.cutter }}</td>
+                            <td>{{ p.titulo_libro }}</td>
+                            <td>{{ p.nombre }} {{ p.ape1 }}</td>
+                            <td>{{ p.fec_devuel }}</td>
+                            <td>
+                            <!--    <a href="#" class="btn btn-info btn-sm">Ver</a>  
+                                <a href="prestamos/upd/?u={{ p.cod_usuario }}&d={{ p.dewey }}&c={{ p.cutter }}" class="btn btn-warning btn-sm">Editar</a>
+                               -->
+                                <a href="prestamos/upd/{{ p.cod_usuario }}/{{ p.dewey }}" class="btn btn-warning btn-sm">Editar</a>
+                               
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

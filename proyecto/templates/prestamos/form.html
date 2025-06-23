@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Registrar Nuevo Préstamo</h1>
+    
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('add_prestamo') }}">
+                <div class="form-group">
+                    <label for="cod_usuario">Usuario</label>
+                    <select class="form-control" id="cod_usuario" name="cod_usuario" required>
+                        <option value="">Seleccione un usuario</option>
+                        {% for usuario in usuarios %}
+                        <option value="{{ usuario.cod_usuario }}">{{ usuario.nombre_completo }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cod_libro">Libro</label>
+                    <select class="form-control" id="cod_libro" name="cod_libro" required>
+                        <option value="">Seleccione un libro</option>
+                        {% for libro in libros %}
+                        <option value="{{ libro.cod_libro }}">{{ libro.Titulo }} - {{ libro.autor }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Registrar Préstamo</button>
+                <a href="{{ url_for('list_prestamos') }}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
